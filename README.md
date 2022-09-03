@@ -5,8 +5,6 @@ The aim of this project is to use a live feed of a parking lot and apply object 
 
 https://user-images.githubusercontent.com/58269425/188257175-6d130d9e-d25e-4e55-9e16-a8d3f8290799.mp4
 
-## Table of Contents (Optional)
-
 ## Installation
 
 ### Initialize repository 

@@ -31,4 +31,4 @@ https://user-images.githubusercontent.com/58269425/188257175-6d130d9e-d25e-4e55-
 !python track.py 
 
 ## Acknowledgments
-The project is supported by abd belongs to Neurog.ai (https://neurog.ai/).
+The project is supervised and supported by Neurog.ai (https://neurog.ai/).

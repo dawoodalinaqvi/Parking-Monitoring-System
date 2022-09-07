@@ -22,15 +22,6 @@ def connectDB():
 ref=connectDB()
     #print(model_predicted_count)
 ref.push({
-	"date":"2022-08-26", "day":"Friday","hour":"12", "car_count":"46"
+	"date":"2022-09-07", "day":"Wednesday","hour":"08", "car_count":"51"
 })
-ref.push({
-	"date":"2022-08-26", "day":"Friday","hour":"13", "car_count":"50"
-})
-# ref.push({
-# 	"date":"2022-08-26", "day":"Friday","hour":"10", "car_count":"55"
-# })
-# ref.push({
-# 	"date":"2022-08-26", "day":"Friday","hour":"11", "car_count":"58"
-# })
 print("data inserted")

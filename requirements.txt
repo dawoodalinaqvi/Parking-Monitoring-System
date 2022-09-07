@@ -42,3 +42,8 @@ imageio
 #tensorflow>=2.4.1  # TFLite export (or tensorflow-cpu, tensorflow-aarch64)
 #openvino-dev  # OpenVINO export
 #git+https://github.com/PINTO0309/openvino2tensorflow #OpenVINO to TFLite export
+
+iteration_utilities
+itsdangerous==2.0.1
+apscheduler
+firebase_admin

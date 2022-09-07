@@ -12,6 +12,10 @@ os.environ["VECLIB_MAXIMUM_THREADS"] = "1"
 os.environ["NUMEXPR_NUM_THREADS"] = "1"
 vehicle_paths=[]
 dirx = 'static\\moving_vehicle'
+#livestream_address = 'rtsp://parking:neuroglia123@192.168.18.90:554/Streaming/Channels/401'
+livestream_address = 'test.mp4'
+## if live stream is not availanle use test video
+
 
 for f in os.listdir(dirx):
         os.remove(os.path.join(dirx,f))
@@ -95,7 +99,7 @@ moved_vehicle = []
 
 @torch.no_grad()
 def livestream_detections(
-        source='rtsp://parking:neuroglia123@192.168.18.90:554/Streaming/Channels/401',
+        source=livestream_address,
         yolo_weights= 'best_yolov5.pt',  # model.pt path(s),
         strong_sort_weights='osnet_x1_0_market1501.pt',  # model.pt path,
         config_strongsort=ROOT / 'strong_sort/configs/strong_sort.yaml',
@@ -334,6 +338,12 @@ def livestream_detections(
                                 txt_file_name = txt_file_name if (isinstance(path, list) and len(path) > 1) else ''
                                 save_one_box(bboxes, imc, file=save_dir / 'crops' / txt_file_name / names[c] / f'{id}' / f'{p.stem}.jpg', BGR=True)
 
+
+                        c = int(cls)  # integer class
+                        id = int(id)  # integer id
+                        label = None if hide_labels else (f'{id} {names[c]}' if hide_conf else \
+                            (f'{id} {conf:.2f}' if hide_class else f'{id} {names[c]} {conf:.2f}'))
+                        annotator.box_label(bboxes, label, color=colors(c, True))
                 LOGGER.info(f'{s}Done. YOLO:({t3 - t2:.3f}s), StrongSORT:({t5 - t4:.3f}s)')
 
             else:
@@ -359,7 +369,7 @@ def livestream_detections(
 
 @torch.no_grad()
 def hourly_detections(
-        source='rtsp://parking:neuroglia123@192.168.18.90:554/Streaming/Channels/401',
+        source=livestream_address,
         yolo_weights= 'best_yolov5.pt',  # model.pt path(s),
         strong_sort_weights='osnet_x1_0_market1501.pt',  # model.pt path,
         config_strongsort=ROOT / 'strong_sort/configs/strong_sort.yaml',
@@ -641,7 +651,7 @@ def parse_opt():
     parser.add_argument('--yolo-weights', nargs='+', type=str, default= 'best_yolov5.pt', help='model.pt path(s)')
     parser.add_argument('--strong-sort-weights', type=str, default=WEIGHTS / 'osnet_x0_25_msmt17.pt')
     parser.add_argument('--config-strongsort', type=str, default='strong_sort/configs/strong_sort.yaml')
-    parser.add_argument('--source', type=str, default='rtsp://parking:neuroglia123@192.168.18.90:554/Streaming/Channels/401', help='file/dir/URL/glob, 0 for webcam')  
+    parser.add_argument('--source', type=str, default=livestream_address, help='file/dir/URL/glob, 0 for webcam')  
     parser.add_argument('--imgsz', '--img', '--img-size', nargs='+', type=int, default=[640], help='inference size h,w')
     parser.add_argument('--conf-thres', type=float, default=0.5, help='confidence threshold')
     parser.add_argument('--iou-thres', type=float, default=0.5, help='NMS IoU threshold')
